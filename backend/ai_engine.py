@@ -40,7 +40,7 @@ class KnuckleAI:
         print(f"[KnuckleAI] Using device: {self.device}")
         
         # Load ResNet50 with pre-trained ImageNet weights
-        self.model = models.resnet50(pretrained=True)
+        self.model = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
         
         # Remove final classification layer - we only need features
         self.feature_extractor = torch.nn.Sequential(*list(self.model.children())[:-1])
