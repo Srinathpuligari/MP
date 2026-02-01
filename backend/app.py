@@ -140,8 +140,8 @@ def verify():
             stored_features = data.get('features', data)
 
         score = ai.compare_features(input_features, stored_features)
-        # Threshold for matching - DGCNN features should be discriminative
-        match = score > 0.60
+        # Threshold for matching - ResNet50 features (high accuracy)
+        match = score > 0.75
 
         # Cleanup
         for temp_path in temp_paths:
@@ -215,8 +215,8 @@ def identify():
             if os.path.exists(temp_path):
                 os.remove(temp_path)
 
-        # Threshold for identification (DGCNN)
-        if best_score > 0.60:
+        # Threshold for identification (ResNet50 - high accuracy)
+        if best_score > 0.75:
             return jsonify({"found": True, "name": best_name, "uid": best_uid, "score": round(best_score, 4)})
         else:
             return jsonify({"found": False, "message": "Person not found in database", "best_score": round(best_score, 4) if best_score > 0 else 0})
