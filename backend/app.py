@@ -141,7 +141,7 @@ def verify():
 
         score = ai.compare_features(input_features, stored_features)
         # Threshold for matching - ResNet50 features (high accuracy)
-        match = score > 0.75
+        match = bool(score > 0.75)  # Convert numpy bool_ to Python bool
 
         # Cleanup
         for temp_path in temp_paths:
@@ -151,7 +151,7 @@ def verify():
         return jsonify({
             "status": "success",
             "match": match,
-            "score": round(score, 4),
+            "score": float(score),  # Convert numpy float to Python float
             "name": user[1],
             "uid": uid
         })
